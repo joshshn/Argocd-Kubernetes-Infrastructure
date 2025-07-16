@@ -1,0 +1,38 @@
+{{- if .Values.strimziKafkaOperator.create }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: strimzi-kafka-operator
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: 'quay.io'
+    chart: strimzi-helm/strimzi-kafka-operator
+    targetRevision: {{ .Values.strimziKafkaOperator.targetRevision }} 
+    helm:
+      valueFiles:
+        - $values/infra-argocd/values/strimzi-kafka-operator.yaml  
+      ignoreMissingValueFiles: true    
+  - repoURL:  'https://github.com/joshshn/Argocd-Kubernetes-Infrastructure.git'
+    targetRevision: {{ .Values.branch }} 
+    ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: strimzi
+  ignoreDifferences:
+  - group: "apps"
+    kind: "CustomResourceDefinition"
+    jsonPointers:
+    - /spec/replicas
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    - ApplyOutOfSyncOnly=true
+    - RespectIgnoreDifferences=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}          
+
