@@ -13,5 +13,5 @@ clusterAutoscaler:
 # 61.7.1
 kubePrometheusStack:
   create: false
-  targetRevision: 61.7.1
+  targetRevision: 75.11.0
 
