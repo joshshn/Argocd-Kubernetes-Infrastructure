@@ -1,0 +1,46 @@
+{{- if .Values.kubePrometheusStack.create }}
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: monitoring
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: acr-ro-image-pull-secret
+#   namespace: monitoring
+# data:
+#   .dockerconfigjson: {{ .Values.capcrImagePullSecret }}
+# type: kubernetes.io/dockerconfigjson
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: 'https://prometheus-community.github.io/helm-charts'
+    chart: kube-prometheus-stack
+    targetRevision: {{ .Values.kubePrometheusStack.targetRevision }} 
+    helm:
+      valueFiles:
+        - $values/infra-argocd/values/kube-prometheus-stack.yaml  
+      ignoreMissingValueFiles: true    
+  - repoURL: 'https://github.com/joshshn/Argocd-Kubernetes-Infrastructure.git'
+    targetRevision: {{ .Values.branch }} 
+    ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitoring
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}          
+
+

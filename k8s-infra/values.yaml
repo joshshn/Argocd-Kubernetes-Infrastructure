@@ -1,0 +1,17 @@
+# Helm Chart version:
+# 1.30.x	1.30.x	9.37.0+
+# 1.29.X	1.29.X	9.35.0+
+# 1.28.X	1.28.X	9.34.0+
+# 1.27.X	1.27.X	9.29.0+
+# 1.26.X	1.26.X	9.28.0+
+clusterAutoscaler:
+  create: false
+  targetRevision:  9.37.0
+
+
+# Helm Chart version:
+# 61.7.1
+kubePrometheusStack:
+  create: false
+  targetRevision: 61.7.1
+

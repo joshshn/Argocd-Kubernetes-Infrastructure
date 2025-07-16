@@ -1,0 +1,36 @@
+
+grafana:
+  defaultDashboardsTimezone: browser
+  persistence:
+    enabled: true
+    type: sts
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+
+prometheusOperator:
+  tls:
+    enabled: false
+
+prometheus:
+  prometheusSpec:
+    scrapeInterval: "1m"
+    scrapeTimeout: "40s"
+    evaluationInterval: "1m"
+    logLevel: debug
+    persistentVolumeClaimRetentionPolicy: 
+     whenDeleted: Retain
+     whenScaled: Retain
+    retention: 90d
+    replicas: 1
+    shards: 1
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+
+
+
