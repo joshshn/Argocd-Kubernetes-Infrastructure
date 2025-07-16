@@ -1,4 +1,4 @@
-
+kubeTargetVersionOverride: "1.31.4-0"
 grafana:
   defaultDashboardsTimezone: browser
   persistence:
@@ -33,4 +33,6 @@ prometheus:
               storage: 20Gi
 
 
-
+alertmanager:
+  enabled: true
+  forceDeployDashboards: false
