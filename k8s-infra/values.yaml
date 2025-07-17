@@ -5,7 +5,7 @@
 # 1.27.X	1.27.X	9.29.0+
 # 1.26.X	1.26.X	9.28.0+
 clusterAutoscaler:
-  create: false
+  create: true
   targetRevision:  9.37.0
 
 
@@ -18,4 +18,8 @@ kubePrometheusStack:
 strimziKafkaOperator:
   create: false
   targetRevision: 0.46.1
+    
+metricsServer:
+  create: true
+  targetRevision: 3.12.2
     
