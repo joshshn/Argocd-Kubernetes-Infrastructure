@@ -20,6 +20,6 @@ strimziKafkaOperator:
   targetRevision: 0.46.1
     
 metricsServer:
-  create: true
+  create: false
   targetRevision: 3.12.2
     
