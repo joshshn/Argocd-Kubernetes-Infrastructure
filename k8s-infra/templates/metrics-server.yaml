@@ -1,19 +1,19 @@
-{{- if .Values.kubePrometheusStack.create }}
+{{- if .Values.metricsServer.create }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-prometheus-stack
+  name: metrics-server
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: 'https://prometheus-community.github.io/helm-charts'
-    chart: kube-prometheus-stack
-    targetRevision: {{ .Values.kubePrometheusStack.targetRevision }} 
+  - repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    chart: metrics-server
+    targetRevision: {{ .Values.metricsServer.targetRevision }}
     helm:
       valueFiles:
-        - $values/values/kube-prometheus-stack.yaml  
+        - $values/values/metrics-server.yaml  
       ignoreMissingValueFiles: true    
   - repoURL: 'https://github.com/joshshn/Argocd-Kubernetes-Infrastructure.git'
     targetRevision: main

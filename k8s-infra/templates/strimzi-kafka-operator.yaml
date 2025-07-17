@@ -12,10 +12,10 @@ spec:
     targetRevision: {{ .Values.strimziKafkaOperator.targetRevision }} 
     helm:
       valueFiles:
-        - $values/infra-argocd/values/strimzi-kafka-operator.yaml  
+        - $values/values/strimzi-kafka-operator.yaml  
       ignoreMissingValueFiles: true    
   - repoURL:  'https://github.com/joshshn/Argocd-Kubernetes-Infrastructure.git'
-    targetRevision: {{ .Values.branch }} 
+    targetRevision: main
     ref: values
   destination:
     server: 'https://kubernetes.default.svc'
