@@ -17,5 +17,5 @@ kubePrometheusStack:
 
 strimziKafkaOperator:
   create: false
-  targetRevision: 0.43.0
+  targetRevision: 0.46.1
     
